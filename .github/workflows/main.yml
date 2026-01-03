@@ -1,27 +1,16 @@
 name: Build APK
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
-    - name: Build APK with Buildozer
-      uses: ArtemSBulgakov/buildozer-action@v1
-      with:
-        workdir: '.'
-        buildozer_version: 'stable'
-        
-    - name: Upload APK artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: bpjs-automation-apk
-        path: bin/*.apk
+      - uses: actions/checkout@v3
+      - uses: ArtemSBulgakov/buildozer-action@v1
+        with:
+          workdir: '.'
+      - uses: actions/upload-artifact@v3
+        with:
+          name: apk
+          path: bin/*.apk
